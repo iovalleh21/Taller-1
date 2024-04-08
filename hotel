@@ -1,0 +1,55 @@
+import java.util.Scanner;
+public class Hotel {
+    public static void main(String args[]){
+        Scanner info = new Scanner(System.in); // metodo = introducir datos por el teclado
+        String nombre = "";
+        String documentos = "";
+        int edad = 0, estadia = 0;
+        
+
+        System.out.println("porfavor podrias darnos algunos datos para confirmar tu reserva ");
+
+        
+        System.out.println("¿Cual es tu nombre? ");
+        nombre = info.nextLine(); // nextLine recoje los datos de info y lo guarda en nombre
+        
+        System.out.println("indique su documentacion porfavor: ");
+        documentos = info.nextLine();
+        
+        System.out.println("indique su edad: ");
+        edad = info.nextInt();
+
+        
+        System.out.println("Datos:\n" +" nacionalidad " + documentos + " \n " + edad + " años ");
+        System.out.println("Bienvenido " + nombre + " Nos da mucho gusto que nos eligieras.\n");
+
+        System.out.println("Indique cuantos dias desea quedarse:");
+        estadia = info.nextInt();
+        
+        if(edad > 65){
+            if (estadia > 10){
+                System.out.println("Tenemos descuentos para mayores de 65 años y si decide quedarse mas de 10 dias se aplican otros tipos de descuentos");   
+            }
+        }
+        if(edad <= 65){
+            if (estadia > 10){
+                System.out.println("se te aplicaran descuentos de estadia");          
+            }
+
+        }
+        if(edad > 65){
+            if (estadia < 10){
+                System.out.println("Tenemos descuentos para mayores de 65 años");       
+ 
+            }    
+        }
+        if(edad <= 65){
+            if(estadia < 10){
+            System.out.println("No se te aplicara ningun tipo de descuento");
+            }     
+        }
+
+                
+
+    }
+}

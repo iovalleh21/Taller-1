@@ -1,0 +1,99 @@
+import java.util.Scanner;
+
+public class Hotel {
+    public static void main(String args[]) {
+        Scanner info = new Scanner(System.in); //metodo introducir datos por el teclado
+        String nombre = "";
+        String documentos = "";
+        String llegada = "";
+        int edad = 0, reserva_dias = 0;
+        String habitaciones = "";
+        double costo_total = 0;
+        double costo_dias = 0;
+        double costo_adulto_mayor = 0;
+
+        System.out.println("Por favor, proporcione algunos datos para confirmar su reserva:");
+
+        System.out.println("¿Cuál es su nombre? ");
+        nombre = info.nextLine();
+
+        System.out.println("Indique su documentación por favor: ");
+        documentos = info.nextLine();
+
+        System.out.println("Indique su edad: ");
+        edad = info.nextInt();
+        info.nextLine(); 
+
+        System.out.println("Indique su fecha de llegada: ");
+        llegada = info.nextLine();
+
+        System.out.println("Datos: " + "nacionalidad " + documentos + ", " + edad + " años ");
+        System.out.println("Bienvenido " + nombre + ". Nos alegra mucho que nos haya elegido.\n");
+        System.out.println("Queremos informarte que tenemos descuentos activos para personas mayores de 65 años y tambien por estadia mayor a 10 dias.");
+
+        System.out.println("Indique cuántos días desea quedarse:");
+        reserva_dias = info.nextInt();
+        info.nextLine(); 
+
+        System.out.println("Tipos de habitaciones: ");
+        System.out.println("1- Habitación para una persona, valor 15000");
+        System.out.println("2- Habitación familiar, valor 35000");
+        System.out.println("3- Otra opción..."); // falta cambiar
+
+        habitaciones = info.nextLine();
+
+        switch (habitaciones) {
+            case "1":
+                System.out.println("Habitación para una persona seleccionada. Valor: 15000 por día.");
+                costo_total += 15000 * reserva_dias;
+                System.out.println("para habitacion de una persona por " + reserva_dias + " dias " + " serian " + costo_total + "pesos");
+                break;
+            case "2":
+                System.out.println("Habitación familiar seleccionada. Valor: 35000 por día.");
+                costo_total += 35000 * reserva_dias;
+                System.out.println("para habitacion familiar por " + reserva_dias + " dias " + " serian " + costo_total + "pesos");
+                break;
+            case "3":
+                // falta cambiar
+                break;
+            default:
+                System.out.println("Opción no válida");
+                break;
+        }
+
+
+        if (edad > 65) {
+            double descuento = 0.05;  // 5% de descuento para adultos mayores
+            costo_adulto_mayor = (costo_total * descuento);
+            System.out.println("Descuento por ser adulto mayor: " + costo_adulto_mayor + " pesos.");
+            
+        } else {
+            System.out.println("No hay descuento de adulto mayor.");
+        }
+
+
+        if(reserva_dias > 10){
+            double descuento =  0.10; // 10% de descuento en hospedaje mayor a 10 dias
+            costo_dias = (costo_total * descuento);
+            System.out.println("descuento por dias: " + costo_dias + "pesos");
+
+        } else{
+            System.out.println("no hay descuento aplicable por estadia");
+            
+        }
+
+        double suma_descuentos = (costo_dias + costo_adulto_mayor);
+        System.out.println("descuentos aplicados: " + suma_descuentos + " ");
+        costo_total = (costo_total - suma_descuentos);
+        System.out.println("el total por descuentos: " + costo_total + " pesos");
+
+    }
+}
+        
+        
+
+        
+        
+        
+        
+        

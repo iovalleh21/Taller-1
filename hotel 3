@@ -1,0 +1,159 @@
+import java.util.Scanner;
+    /**
+     * Esta clase representa un sistema de reserva de Hotel.
+     * @author Ignacio
+     */
+
+public class Hotel {
+    
+    /**
+     *Metodo principal que inicia el sistema reserva de Hotel.
+     * 
+     *@param args argumentos de la línea de comandos (no se utilizan en este programa).
+     */
+    public static void main(String args[]) {
+        Scanner info = new Scanner(System.in);
+        String nombre, documentos, llegada, habitaciones, servicios,habitacion, servicios_elegidos = ""; //atributos
+        int edad, reserva_dias, reserva_noche;
+        double costo_total = 0, costo_dias = 0, costo_adulto_mayor = 0, costo_adicional = 0;
+
+        // Solicitar los datos para la reserva
+        System.out.println("Por favor, proporcione algunos datos para confirmar su reserva:");
+        System.out.print("¿Cuál es su nombre? ");
+        nombre = info.nextLine();  
+
+        System.out.print("Indique su documentación por favor: ");
+        documentos = info.nextLine();
+
+        System.out.print("Indique su edad: ");
+        edad = info.nextInt();
+        info.nextLine();
+
+        System.out.print("Indique su fecha de llegada: ");
+        llegada = info.nextLine();
+    
+        System.out.println("Datos: " + "RUT " + documentos + ", " + edad + " años ");
+        System.out.println("\nBienvenido " + nombre + ". Nos alegra mucho que nos haya elegido.\n");
+        System.out.println("Queremos informarte que tenemos descuentos activos para personas mayores de 65 años y también por estadía mayor a 10 días.");
+
+        System.out.print("Indique cuántos días desea quedarse: ");
+        reserva_dias = info.nextInt();
+        info.nextLine();
+
+        System.out.print("Indique cuántas noches desea quedarse: ");
+        reserva_noche = info.nextInt();
+        info.nextLine();
+        // Muestra los tipos de habitaciones 
+        System.out.println("\nTipos de habitaciones: ");
+        System.out.println("1- Habitación para una persona, valor $15000 pesos");
+        System.out.println("2- Habitación familiar, valor $35000 pesos");
+        System.out.println("3- Suite, valor $70000 pesos"); 
+
+        System.out.print("\nSeleccione el tipo de habitación (1/2/3): ");
+        habitaciones = info.nextLine();
+
+       // Se utiliza el switch para determinar el costo total de la habitacion seleccionada
+        switch (habitaciones) {
+            case "1":
+                costo_total += 15000 * reserva_dias;
+                habitacion = "Habitación para una persona";
+                break;
+            case "2":
+                costo_total += 35000 * reserva_dias;
+                habitacion = "Habitación familiar";
+                break;
+            case "3":
+                costo_total += 70000 * reserva_dias;
+                habitacion = "Suite";
+                break;
+            default:
+                System.out.println("Opción no válida");
+                return;
+        }
+
+        System.out.printf("\nCosto total: $%.0f pesos\n", costo_total);
+
+        // Aplicar descuentos por edad 
+        if (edad > 65) {
+            costo_adulto_mayor = costo_total * 0.05; //descuento por adulto mayor de 5%
+            System.out.printf("Descuento por ser adulto mayor: $%.0f pesos\n", costo_adulto_mayor );
+        } else {
+            System.out.println("No hay descuento de adulto mayor.");
+        }
+        // Aplicar descuentos por estadia
+        if (reserva_dias > 10) {
+            costo_dias = costo_total * 0.10;  //descuento por estadia mayor a 10 dias de 10%
+            System.out.printf("Descuento por estadía mayor a 10 días: $%.0f pesos\n", costo_dias);
+        } else {
+            System.out.println("No hay descuento aplicable por estadía.");
+        }
+        // calculo de costo total con descuentos de adulto mayor y estadia
+        double suma_descuentos = costo_adulto_mayor + costo_dias;
+        costo_total -= suma_descuentos;
+        System.out.printf("Total con descuentos: $%.0f pesos\n", costo_total);
+
+        // Solicitar servicios adicionales
+        System.out.print("¿Desea agregar servicios adicionales? (si/no): ");
+        String respuesta_servicios = info.nextLine();
+
+        // Se utiliza un ciclo while para agregar servicios extras si dice "si"
+        while (respuesta_servicios.equals("si")) {
+            System.out.println("¿Qué servicio desea agregar? (desayuno($30000), spa($25000), gimnasio($18000), sauna($25000), peluqueria($15000)");
+            servicios = info.nextLine();
+            // Se utiliza el switch para determinar los costos adicionales y el servicio elegido
+            switch (servicios) {
+                case "desayuno":
+                    costo_adicional += 30000;
+                    servicios_elegidos += "desayuno ";
+                    break;
+                case "spa":
+                    costo_adicional += 25000;
+                    servicios_elegidos += "spa ";
+                    break;
+                case "gimnasio":
+                    costo_adicional += 18000;
+                    servicios_elegidos += "gimnasio ";
+                    break;
+                case "sauna":
+                    costo_adicional += 25000;
+                    servicios_elegidos += "sauna ";
+                    break;
+                case "peluqueria":
+                    costo_adicional += 15000;
+                    servicios_elegidos += "peluqueria ";
+                    break;
+                default:
+                    System.out.println("Servicio no encontrado.");
+                    break;
+            }
+            
+            System.out.print("¿Desea agregar otro servicio extra? (si/no): ");
+            respuesta_servicios = info.nextLine();
+        }
+
+        // El calculo de la suma de los servicios adicionales con el costo total
+        costo_total += costo_adicional;
+        System.out.println("El costo total con servicios extra es de: $" + costo_total + " pesos \n");
+
+        // Datos de la reserva
+        System.out.println("Revisa los detalles de tu reserva");
+        System.out.println("Nombre: " + nombre);
+        System.out.println("Documentación: " + documentos);
+        System.out.println("Edad: " + edad );
+        System.out.println("Fecha de llegada: " + llegada);
+        System.out.println("Reserva: " + reserva_dias + " días " + reserva_noche + " noches");
+        System.out.println("Tipo de habitación: " + habitacion);
+        System.out.printf("Costo total: $%.0f pesos\n", costo_total);
+        System.out.println("Servicios extras elegidos: " + servicios_elegidos);
+        
+        // Pregunta si los datos ingresados estan correctos 
+        System.out.print("¿Los datos son correctos? (si/no): ");
+        String confirmacion_reserva = info.nextLine();
+        
+        if(confirmacion_reserva.equals("si")){
+            System.out.println("Su reserva ha sido guardada con éxito.");
+        } else {
+            System.out.println("Se ha cancelado la reserva.");
+        }
+    }
+}
